@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "type": "antlr-debug",
+            "request": "launch",
+            "name": "Debug ANTLR4 Grammar",
+            "input": "input/parentesis.txt",
+            "visualParseTree": true,
+            "printParseTree": true,
+            "startRule": "si",
+            "grammar": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "parentesis.App",
+            "projectName": "parentesis"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}

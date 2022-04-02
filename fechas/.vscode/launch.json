@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "type": "antlr-debug",
+            "request": "launch",
+            "name": "Debug ANTLR4 Grammar",
+            "input": "input/fechasYHoras.txt",
+            "startRule": "s",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "fechas.App",
+            "projectName": "fechas"
+        }
+    ]
+}
