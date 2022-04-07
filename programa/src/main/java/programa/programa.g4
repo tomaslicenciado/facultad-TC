@@ -7,14 +7,42 @@ grammar programa;
 fragment DIGITO : [0-9] ;
 fragment LETRA : [A-Za-z] ;
 
-ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
+LA : '{' ;
+LC : '}' ;
+PA : '(' ;
+PC : ')' ;
 INT : 'int' ;
 DOUBLE : 'double' ;
-ASIGNACION : ID '=' (ID | DIGITO);
-TIPO : (INT | DOUBLE) ;
+COMP : '==' | '<' | '>' | '>=' | '<=' | '!=' ;
+ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
+ASIGNACION : ID '=' (ID | DIGITO);
+TIPO : INT | DOUBLE ;
 
 WS : [ \t\n\r] -> skip ;
 OTRO : . ;
 
-prog : OTRO EOF ;
+prog : instrucciones EOF ;
+
+instrucciones : instruccion instrucciones
+                |
+                ;
+
+instruccion : inst_simple
+            | bloque
+            ;
+
+inst_simple : ASIGNACION ';'
+            | TIPO declaraciones ';'
+            | iwhile
+            ;
+
+bloque : LA instrucciones LC ;
+
+declaraciones : declaracion (',' declaraciones)* ;
+
+declaracion : ID
+            | ASIGNACION
+            ;
+
+iwhile : 'while' PA ID COMP ID PC ;

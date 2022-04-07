@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/programa/src/main/java/programa/programa.g4 by ANTLR 4.8
+// Generated from /media/tomas/Datos/FACULTAD/5 - TC/programa/src/main/java/programa/programa.g4 by ANTLR 4.8
 
     package programa;
 
@@ -18,4 +18,46 @@ public interface programaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProg(programaParser.ProgContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#instrucciones}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrucciones(programaParser.InstruccionesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#instruccion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstruccion(programaParser.InstruccionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#inst_simple}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInst_simple(programaParser.Inst_simpleContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#bloque}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBloque(programaParser.BloqueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#declaraciones}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaraciones(programaParser.DeclaracionesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#declaracion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaracion(programaParser.DeclaracionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#iwhile}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIwhile(programaParser.IwhileContext ctx);
 }
