@@ -1,3 +1,5 @@
+//Propiedad y autoría de Tomás Ferreyra
+
 grammar programa;
 
 @header {
@@ -23,6 +25,7 @@ ID : ( LETRA | '_' ) ( LETRA | DIGITO | '_' )* ;
 WS : [ \t\n\r] -> skip ;
 OTRO : . ;
 
+
 prog : instrucciones EOF ;
 
 instrucciones : instruccion instrucciones
@@ -30,12 +33,14 @@ instrucciones : instruccion instrucciones
                 ;
 
 instruccion : inst_simple
+
             | bloque
             | iwhile instruccion
             ;
 
 inst_simple : asignacion PYCOMA
             | declaracion PYCOMA
+
             ;
 
 asignacion : ID '=' valor ;
@@ -53,6 +58,7 @@ bloque : LA instrucciones LC ;
 
 iwhile : 'while' PA comp PC ;
 
+
 comp : CMP valor ;
 
 valor : ID | numero ;
@@ -60,3 +66,4 @@ valor : ID | numero ;
 numero : NINT | NDOUBLE ;
 
 tipo : INT | DOUBLE ;
+

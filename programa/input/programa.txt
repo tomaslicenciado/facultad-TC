@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 x = 1;
+=======
+>>>>>>> f4e7dd2 (Acomodo)
 int x;
 double y;
 int z = 0;
 double w, q, t;
 int a = 5, b, c = 10;
+<<<<<<< HEAD
 double d = 35.7;
 
 
@@ -12,3 +16,10 @@ z = y;
 while (x == y) { x = 1; }
 
 while (x != 3) z = 1;
+=======
+x = 1;
+z = y;
+while (x == y) { 
+    x = 5;
+ }
+>>>>>>> f4e7dd2 (Acomodo)
