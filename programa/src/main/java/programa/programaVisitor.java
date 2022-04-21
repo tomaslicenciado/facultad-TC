@@ -1,4 +1,4 @@
-// Generated from /media/tomas/Datos/FACULTAD/5 - TC/programa/src/main/java/programa/programa.g4 by ANTLR 4.8
+// Generated from /home/tomas/FACULTAD/TC/facultad-TC/programa/src/main/java/programa/programa.g4 by ANTLR 4.8
 
     package programa;
 
@@ -37,17 +37,11 @@ public interface programaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInst_simple(programaParser.Inst_simpleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link programaParser#bloque}.
+	 * Visit a parse tree produced by {@link programaParser#asignacion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBloque(programaParser.BloqueContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link programaParser#declaraciones}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclaraciones(programaParser.DeclaracionesContext ctx);
+	T visitAsignacion(programaParser.AsignacionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link programaParser#declaracion}.
 	 * @param ctx the parse tree
@@ -55,9 +49,51 @@ public interface programaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclaracion(programaParser.DeclaracionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link programaParser#lista}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLista(programaParser.ListaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#vaoas}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVaoas(programaParser.VaoasContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#bloque}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBloque(programaParser.BloqueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link programaParser#iwhile}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIwhile(programaParser.IwhileContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#comp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComp(programaParser.CompContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#valor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValor(programaParser.ValorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#numero}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumero(programaParser.NumeroContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link programaParser#tipo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTipo(programaParser.TipoContext ctx);
 }

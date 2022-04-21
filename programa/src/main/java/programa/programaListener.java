@@ -1,4 +1,4 @@
-// Generated from /media/tomas/Datos/FACULTAD/5 - TC/programa/src/main/java/programa/programa.g4 by ANTLR 4.8
+// Generated from /home/tomas/FACULTAD/TC/facultad-TC/programa/src/main/java/programa/programa.g4 by ANTLR 4.8
 
     package programa;
 
@@ -50,25 +50,15 @@ public interface programaListener extends ParseTreeListener {
 	 */
 	void exitInst_simple(programaParser.Inst_simpleContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link programaParser#bloque}.
+	 * Enter a parse tree produced by {@link programaParser#asignacion}.
 	 * @param ctx the parse tree
 	 */
-	void enterBloque(programaParser.BloqueContext ctx);
+	void enterAsignacion(programaParser.AsignacionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link programaParser#bloque}.
+	 * Exit a parse tree produced by {@link programaParser#asignacion}.
 	 * @param ctx the parse tree
 	 */
-	void exitBloque(programaParser.BloqueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link programaParser#declaraciones}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaraciones(programaParser.DeclaracionesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link programaParser#declaraciones}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaraciones(programaParser.DeclaracionesContext ctx);
+	void exitAsignacion(programaParser.AsignacionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link programaParser#declaracion}.
 	 * @param ctx the parse tree
@@ -80,6 +70,36 @@ public interface programaListener extends ParseTreeListener {
 	 */
 	void exitDeclaracion(programaParser.DeclaracionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link programaParser#lista}.
+	 * @param ctx the parse tree
+	 */
+	void enterLista(programaParser.ListaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#lista}.
+	 * @param ctx the parse tree
+	 */
+	void exitLista(programaParser.ListaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link programaParser#vaoas}.
+	 * @param ctx the parse tree
+	 */
+	void enterVaoas(programaParser.VaoasContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#vaoas}.
+	 * @param ctx the parse tree
+	 */
+	void exitVaoas(programaParser.VaoasContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link programaParser#bloque}.
+	 * @param ctx the parse tree
+	 */
+	void enterBloque(programaParser.BloqueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#bloque}.
+	 * @param ctx the parse tree
+	 */
+	void exitBloque(programaParser.BloqueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link programaParser#iwhile}.
 	 * @param ctx the parse tree
 	 */
@@ -89,4 +109,44 @@ public interface programaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIwhile(programaParser.IwhileContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link programaParser#comp}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp(programaParser.CompContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#comp}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp(programaParser.CompContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link programaParser#valor}.
+	 * @param ctx the parse tree
+	 */
+	void enterValor(programaParser.ValorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#valor}.
+	 * @param ctx the parse tree
+	 */
+	void exitValor(programaParser.ValorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link programaParser#numero}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumero(programaParser.NumeroContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#numero}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumero(programaParser.NumeroContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link programaParser#tipo}.
+	 * @param ctx the parse tree
+	 */
+	void enterTipo(programaParser.TipoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programaParser#tipo}.
+	 * @param ctx the parse tree
+	 */
+	void exitTipo(programaParser.TipoContext ctx);
 }

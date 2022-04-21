@@ -1,0 +1,14 @@
+x = 1;
+int x;
+double y;
+int z = 0;
+double w, q, t;
+int a = 5, b, c = 10;
+double d = 35.7;
+
+
+z = y;
+
+while (x == y) { x = 1; }
+
+while (x != 3) z = 1;

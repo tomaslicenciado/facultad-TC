@@ -7,18 +7,19 @@ grammar programa;
 fragment DIGITO : [0-9] ;
 fragment LETRA : [A-Za-z] ;
 
+
 LA : '{' ;
 LC : '}' ;
 PA : '(' ;
 PC : ')' ;
+COMA : ',' ;
+PYCOMA : ';' ;
 INT : 'int' ;
 DOUBLE : 'double' ;
-COMP : '==' | '<' | '>' | '>=' | '<=' | '!=' ;
-ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
-
-ASIGNACION : ID '=' (ID | DIGITO);
-TIPO : INT | DOUBLE ;
-
+NINT : DIGITO+ ;
+NDOUBLE : NINT '.' DIGITO DIGITO? ;
+CMP : '==' | '<' | '>' | '>=' | '<=' | '!=' ;
+ID : ( LETRA | '_' ) ( LETRA | DIGITO | '_' )* ;
 WS : [ \t\n\r] -> skip ;
 OTRO : . ;
 
@@ -30,19 +31,32 @@ instrucciones : instruccion instrucciones
 
 instruccion : inst_simple
             | bloque
+            | iwhile instruccion
             ;
 
-inst_simple : ASIGNACION ';'
-            | TIPO declaraciones ';'
-            | iwhile
+inst_simple : asignacion PYCOMA
+            | declaracion PYCOMA
             ;
+
+asignacion : ID '=' valor ;
+
+declaracion : tipo vaoas lista ;
+
+lista : COMA vaoas lista
+       |
+       ;
+
+//vaoas = VAriable O ASignacion 
+vaoas : ID | asignacion ;
 
 bloque : LA instrucciones LC ;
 
-declaraciones : declaracion (',' declaraciones)* ;
+iwhile : 'while' PA comp PC ;
 
-declaracion : ID
-            | ASIGNACION
-            ;
+comp : CMP valor ;
 
-iwhile : 'while' PA ID COMP ID PC ;
+valor : ID | numero ;
+
+numero : NINT | NDOUBLE ;
+
+tipo : INT | DOUBLE ;
