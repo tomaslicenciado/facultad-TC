@@ -1,3 +1,9 @@
+grammar operadores;
+
+@header {
+  package operadores;
+}
+
 fragment DIGITO : [0-9] ;
 
 
@@ -13,22 +19,44 @@ OR : '||' ;
 CMP : '==' | '<' | '>' | '>=' | '<=' | '!=' ;
 ENTERO : DIGITO+ ;
 
-opal : term exp;
+WS : [ \t\r\n] -> skip ;
+OTRO : . ;
 
-exp : SUMA term exp
-    | RESTA term exp
+si : operaciones EOF ;
+
+operaciones : opal operaciones
+            |
+            ;
+
+opal : relacional logic;
+
+logic : AND opal
+      | OR opal
+      |
+      ;
+
+relacional : opar rel
+           | PA opal PC;
+
+rel : CMP opar
     | 
     ;
 
-term : factor t;
+opar : term operacion;
 
-t : MULT factor t
-  | DIV factor t
-  | MOD factor t
-  |
-  ; 
+operacion : SUMA opar
+          | RESTA opar
+          |
+          ;
 
-factor : ENTERO
-       | PA opal PC
-       |
-       ; 
+term : valor mult ;
+
+mult : MULT term
+    | DIV term
+    | MOD term
+    |
+    ;
+
+valor : ENTERO
+      | PA opar PC
+      ;
