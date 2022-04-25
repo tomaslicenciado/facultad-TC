@@ -1,3 +1,4 @@
+#include <stdio.h>
 
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 {
@@ -5,7 +6,7 @@ void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 	return; /* sale de la función */
 }
 
-void acceso(unsigned char edad)
+void acceso(char edad)
 {
     if (edad < 18)
         printf("No puedes acceder.\n");
