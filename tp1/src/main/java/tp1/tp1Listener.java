@@ -1,4 +1,4 @@
-// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
+// Generated from /home/tomas/FACULTAD/TC/facultad-TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
 
     package tp1;
 
