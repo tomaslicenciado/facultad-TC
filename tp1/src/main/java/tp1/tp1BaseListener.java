@@ -294,6 +294,18 @@ public class tp1BaseListener implements tp1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNegado(tp1Parser.NegadoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNegado(tp1Parser.NegadoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLogic(tp1Parser.LogicContext ctx) { }
 	/**
 	 * {@inheritDoc}

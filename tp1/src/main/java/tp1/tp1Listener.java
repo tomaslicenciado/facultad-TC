@@ -240,6 +240,16 @@ public interface tp1Listener extends ParseTreeListener {
 	 */
 	void exitOpal(tp1Parser.OpalContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link tp1Parser#negado}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegado(tp1Parser.NegadoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link tp1Parser#negado}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegado(tp1Parser.NegadoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link tp1Parser#logic}.
 	 * @param ctx the parse tree
 	 */

@@ -107,7 +107,9 @@ asignacion : ID '=' operaciones ;
 
 operaciones : opal operaciones | ;
 
-opal : relacional logic ;
+opal : negado relacional logic ;
+
+negado : '!' | ;
 
 logic : AND opal | OR opal | ;
 
@@ -135,7 +137,7 @@ argumento : asignacion | operaciones ;
 
 a_lista : COMA argumentos | ;
 
-ireturn : RETURN | RETURN PA operaciones PC | RETURN operaciones ;
+ireturn : RETURN PA operaciones PC | RETURN operaciones | RETURN;
 
 inst_compuesta : est_control ;
 

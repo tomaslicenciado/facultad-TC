@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+int suma (int,int);
+
+int suma (int a, int b){
+	return (!(a+b));
+}
+
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 {
 	printf("Hola Mundo\n"); /* imprime la cadena */

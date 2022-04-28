@@ -151,6 +151,12 @@ public interface tp1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOpal(tp1Parser.OpalContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link tp1Parser#negado}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNegado(tp1Parser.NegadoContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link tp1Parser#logic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

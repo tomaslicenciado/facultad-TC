@@ -180,6 +180,13 @@ public class tp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements tp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitNegado(tp1Parser.NegadoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitLogic(tp1Parser.LogicContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
