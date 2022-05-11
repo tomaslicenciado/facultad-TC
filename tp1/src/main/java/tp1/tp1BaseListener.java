@@ -474,18 +474,6 @@ public class tp1BaseListener implements tp1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInst_compuesta(tp1Parser.Inst_compuestaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInst_compuesta(tp1Parser.Inst_compuestaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterEst_control(tp1Parser.Est_controlContext ctx) { }
 	/**
 	 * {@inheritDoc}

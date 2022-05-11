@@ -241,12 +241,6 @@ public interface tp1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIreturn(tp1Parser.IreturnContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link tp1Parser#inst_compuesta}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInst_compuesta(tp1Parser.Inst_compuestaContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link tp1Parser#est_control}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

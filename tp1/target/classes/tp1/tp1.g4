@@ -92,7 +92,7 @@ bloque : LA instrucciones LC ;
 
 instrucciones : instruccion instrucciones | ;
 
-instruccion : inst_simple PYCOMA | inst_compuesta | ireturn PYCOMA ;
+instruccion : inst_simple PYCOMA | est_control | ireturn PYCOMA ;
 
 inst_simple : declaraciones | asignacion | operaciones | dec_func ;
 
@@ -137,8 +137,6 @@ argumento : asignacion | operaciones ;
 a_lista : COMA argumentos | ;
 
 ireturn : RETURN operaciones | RETURN;
-
-inst_compuesta : est_control ;
 
 est_control : iwhile | iif | ifor ;
 

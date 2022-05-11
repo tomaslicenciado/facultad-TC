@@ -285,13 +285,6 @@ public class tp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements tp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInst_compuesta(tp1Parser.Inst_compuestaContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitEst_control(tp1Parser.Est_controlContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

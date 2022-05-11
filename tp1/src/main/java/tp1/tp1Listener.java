@@ -390,16 +390,6 @@ public interface tp1Listener extends ParseTreeListener {
 	 */
 	void exitIreturn(tp1Parser.IreturnContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link tp1Parser#inst_compuesta}.
-	 * @param ctx the parse tree
-	 */
-	void enterInst_compuesta(tp1Parser.Inst_compuestaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link tp1Parser#inst_compuesta}.
-	 * @param ctx the parse tree
-	 */
-	void exitInst_compuesta(tp1Parser.Inst_compuestaContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link tp1Parser#est_control}.
 	 * @param ctx the parse tree
 	 */
