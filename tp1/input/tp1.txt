@@ -3,7 +3,7 @@
 int suma (int,int);
 
 int suma (int a, int b){
-	return (!(a+b));
+	return (a+b);
 }
 
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */

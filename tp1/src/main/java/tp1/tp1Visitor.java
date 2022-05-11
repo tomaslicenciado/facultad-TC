@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
 
     package tp1;
 
@@ -150,12 +150,6 @@ public interface tp1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOpal(tp1Parser.OpalContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link tp1Parser#negado}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNegado(tp1Parser.NegadoContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link tp1Parser#logic}.
 	 * @param ctx the parse tree

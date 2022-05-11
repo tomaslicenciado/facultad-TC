@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
 
     package tp1;
 
@@ -239,16 +239,6 @@ public interface tp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOpal(tp1Parser.OpalContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link tp1Parser#negado}.
-	 * @param ctx the parse tree
-	 */
-	void enterNegado(tp1Parser.NegadoContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link tp1Parser#negado}.
-	 * @param ctx the parse tree
-	 */
-	void exitNegado(tp1Parser.NegadoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link tp1Parser#logic}.
 	 * @param ctx the parse tree

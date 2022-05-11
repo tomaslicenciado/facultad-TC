@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
 
     package tp1;
 
@@ -174,13 +174,6 @@ public class tp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements tp
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitOpal(tp1Parser.OpalContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitNegado(tp1Parser.NegadoContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

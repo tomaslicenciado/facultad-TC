@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/tp1/src/main/java/tp1/tp1.g4 by ANTLR 4.8
 
     package tp1;
 
@@ -289,18 +289,6 @@ public class tp1BaseListener implements tp1Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOpal(tp1Parser.OpalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNegado(tp1Parser.NegadoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNegado(tp1Parser.NegadoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

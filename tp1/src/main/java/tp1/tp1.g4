@@ -67,9 +67,9 @@ si : funciones EOF ;
 
 funciones : funcion funciones | ;
 
-funcion : dec_func | def_func ; 	
+funcion : dec_func PYCOMA | def_func ; 	
 
-dec_func : tipo ID PA parametros PC PYCOMA ;
+dec_func : tipo ID PA parametros PC ;
 
 parametros : parametro p_lista ;
 
@@ -93,9 +93,9 @@ bloque : LA instrucciones LC ;
 
 instrucciones : instruccion instrucciones | ;
 
-instruccion : inst_simple PYCOMA | inst_compuesta ;
+instruccion : inst_simple PYCOMA | inst_compuesta | ireturn PYCOMA ;
 
-inst_simple : declaraciones | asignacion | operaciones | dec_func | ireturn ;
+inst_simple : declaraciones | asignacion | operaciones | dec_func ;
 
 declaraciones: tipo declaracion d_lista ;
 
@@ -107,13 +107,11 @@ asignacion : ID '=' operaciones ;
 
 operaciones : opal operaciones | ;
 
-opal : negado relacional logic ;
-
-negado : '!' | ;
+opal : relacional logic ;
 
 logic : AND opal | OR opal | ;
 
-relacional : opar rel | PA opal PC ;
+relacional : PA opal PC | opar rel ;
 
 rel : CMP opar | ;
 
@@ -137,7 +135,7 @@ argumento : asignacion | operaciones ;
 
 a_lista : COMA argumentos | ;
 
-ireturn : RETURN PA operaciones PC | RETURN operaciones | RETURN;
+ireturn : RETURN operaciones | RETURN;
 
 inst_compuesta : est_control ;
 
