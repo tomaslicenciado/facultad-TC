@@ -19,11 +19,11 @@ public interface tp1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSi(tp1Parser.SiContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link tp1Parser#funciones}.
+	 * Visit a parse tree produced by {@link tp1Parser#opciones}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunciones(tp1Parser.FuncionesContext ctx);
+	T visitOpciones(tp1Parser.OpcionesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link tp1Parser#funcion}.
 	 * @param ctx the parse tree
@@ -150,6 +150,12 @@ public interface tp1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOpal(tp1Parser.OpalContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link tp1Parser#negacion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNegacion(tp1Parser.NegacionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link tp1Parser#logic}.
 	 * @param ctx the parse tree
@@ -294,4 +300,10 @@ public interface tp1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCf_lista(tp1Parser.Cf_listaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link tp1Parser#operacion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperacion(tp1Parser.OperacionContext ctx);
 }

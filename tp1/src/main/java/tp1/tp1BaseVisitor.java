@@ -26,7 +26,7 @@ public class tp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements tp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFunciones(tp1Parser.FuncionesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOpciones(tp1Parser.OpcionesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -174,6 +174,13 @@ public class tp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements tp
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitOpal(tp1Parser.OpalContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNegacion(tp1Parser.NegacionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -342,4 +349,11 @@ public class tp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements tp
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitCf_lista(tp1Parser.Cf_listaContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitOperacion(tp1Parser.OperacionContext ctx) { return visitChildren(ctx); }
 }

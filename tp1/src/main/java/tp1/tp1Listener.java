@@ -20,15 +20,15 @@ public interface tp1Listener extends ParseTreeListener {
 	 */
 	void exitSi(tp1Parser.SiContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link tp1Parser#funciones}.
+	 * Enter a parse tree produced by {@link tp1Parser#opciones}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunciones(tp1Parser.FuncionesContext ctx);
+	void enterOpciones(tp1Parser.OpcionesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link tp1Parser#funciones}.
+	 * Exit a parse tree produced by {@link tp1Parser#opciones}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunciones(tp1Parser.FuncionesContext ctx);
+	void exitOpciones(tp1Parser.OpcionesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link tp1Parser#funcion}.
 	 * @param ctx the parse tree
@@ -239,6 +239,16 @@ public interface tp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOpal(tp1Parser.OpalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link tp1Parser#negacion}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegacion(tp1Parser.NegacionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link tp1Parser#negacion}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegacion(tp1Parser.NegacionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link tp1Parser#logic}.
 	 * @param ctx the parse tree
@@ -479,4 +489,14 @@ public interface tp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCf_lista(tp1Parser.Cf_listaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link tp1Parser#operacion}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperacion(tp1Parser.OperacionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link tp1Parser#operacion}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperacion(tp1Parser.OperacionContext ctx);
 }

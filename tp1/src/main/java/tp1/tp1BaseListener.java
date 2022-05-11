@@ -30,13 +30,13 @@ public class tp1BaseListener implements tp1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunciones(tp1Parser.FuncionesContext ctx) { }
+	@Override public void enterOpciones(tp1Parser.OpcionesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunciones(tp1Parser.FuncionesContext ctx) { }
+	@Override public void exitOpciones(tp1Parser.OpcionesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -289,6 +289,18 @@ public class tp1BaseListener implements tp1Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOpal(tp1Parser.OpalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNegacion(tp1Parser.NegacionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNegacion(tp1Parser.NegacionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -577,6 +589,18 @@ public class tp1BaseListener implements tp1Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCf_lista(tp1Parser.Cf_listaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperacion(tp1Parser.OperacionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperacion(tp1Parser.OperacionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

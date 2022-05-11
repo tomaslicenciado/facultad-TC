@@ -6,6 +6,12 @@ int suma (int a, int b){
 	return (a+b);
 }
 
+int a = 0;
+
+double b;
+
+b=30;
+
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 {
 	printf("Hola Mundo\n"); /* imprime la cadena */
@@ -14,7 +20,7 @@ void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 
 void acceso(char edad)
 {
-    if (edad < 18)
+    if (!(edad < 18))
         printf("No puedes acceder.\n");
     else
         printf("Bienvenido.\n");

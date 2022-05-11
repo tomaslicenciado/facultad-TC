@@ -59,13 +59,12 @@ VSTRING : '"' ( '\\"' | . )*? '"' ;
 BCOMENTARIO : '/*' .*? '*/' -> skip;
 COMENTARIO : '//' .*? ('\n' | '\r') -> skip;
 PRAGMA : '#' .*? ('\n' | '\r') -> skip;
-WS : [ \t\n\r] -> skip;
+WS : [ \t\n\r] -> skip ;
 OTRO : . ;
 
+si : opciones EOF ;
 
-si : funciones EOF ;
-
-funciones : funcion funciones | ;
+opciones : funcion opciones | asignacion PYCOMA opciones | declaraciones PYCOMA opciones | ;
 
 funcion : dec_func PYCOMA | def_func ; 	
 
@@ -79,7 +78,7 @@ tipo : t_simple | puntero ;
 
 t_simple : INT | DOUBLE | CHAR | VOID ;
 
-puntero : t_simple '*' | t_simple CA CC;
+puntero : t_simple MULT | t_simple CA CC;
 
 p_lista : COMA parametros | ;
 
@@ -107,7 +106,9 @@ asignacion : ID '=' operaciones ;
 
 operaciones : opal operaciones | ;
 
-opal : relacional logic ;
+opal : negacion relacional logic ;
+
+negacion : '!' | ;
 
 logic : AND opal | OR opal | ;
 
@@ -115,7 +116,7 @@ relacional : PA opal PC | opar rel ;
 
 rel : CMP opar | ;
 
-opar : term operaciones ;
+opar : term operacion ;
 
 term : ovalor mult ;
 
@@ -156,3 +157,5 @@ comienzos_f : opcion cf_lista | ;
 opcion : tipo declaracion | argumento ;
 
 cf_lista : COMA opcion cf_lista | ;
+
+operacion : SUMA opar | RESTA opar | ;
