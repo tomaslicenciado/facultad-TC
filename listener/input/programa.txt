@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int suma (int,int);
+
+int suma (int a, int b){
+	return (a+b);
+}
+
+int a = 0;
+
+double b;
+
+b=30;
+
+void holamundo(void) /* Función donde se ejecuta la lógica del programa */
+{
+	printf("Hola Mundo\n"); /* imprime la cadena */
+	return; /* sale de la función */
+}
+
+void acceso(char edad)
+{
+    if (!(edad < 18))
+        printf("No puedes acceder.\n");
+    else
+        printf("Bienvenido.\n");
+    return;
+}
+
+int main(void) /*Función principal del programa*/
+{
+	holamundo(); /* llamada a la función que lleva el peso */
+    acceso(18);
+    acceso(17);
+    char resultado; /* Variable de tipo carácter donde se almacenará el resultado de las operaciones. */
+
+	resultado=5+2; /*Realizamos una suma.*/
+	printf("Resultado de la suma: %i\n",resultado);
+	resultado=5-2; /*Realizamos una resta.*/
+	printf("Resultado de la resta:%i\n",resultado);
+	resultado=5*2; /*Realizamos una multiplicación.*/
+	printf("Resultado de la multiplicación: %i\n",resultado);
+	resultado=5/2; /*Realizamos una división entera.*/
+	printf("Resultado de la división:%i\n",resultado);
+	return(0); /* sale del programa: correcto */
+}
