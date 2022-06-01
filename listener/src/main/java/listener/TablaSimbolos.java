@@ -1,37 +1,46 @@
 package listener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TablaSimbolos {
-    List<Map<String,ID>> simbolos = new ArrayList<Map<String,ID>>();
+    List<Contexto> contextos;
 
-    public void addContexto(){
-        simbolos.add(new HashMap<String,ID>());
+    public TablaSimbolos(){
+        contextos = new ArrayList<Contexto>();
+    }
+
+    public void addContexto(String identificador){
+        contextos.add(new Contexto(identificador));
     }
 
     public void delContexto(){
-        simbolos.remove(simbolos.size() -1);
+        contextos.remove(contextos.size() -1);
     }
 
     public ID buscarId (String id){
         ID r = null;
         int index = 0;
-        while (r == null && index < simbolos.size()){
-            r = simbolos.get(index).get(id);
+        while (r == null && index < contextos.size()){
+            r = contextos.get(index).get(id);
             index++;
         }
         return r;
     }
 
     public ID buscarIdLocal (String id){
-        return (simbolos.size() != 0? simbolos.get(simbolos.size()-1).get(id) : null);
+        return (contextos.size() != 0? contextos.get(contextos.size()-1).get(id) : null);
     }
 
     public void addId (ID id){
-        simbolos.get(simbolos.size()-1).put(id.idName, id);
+        contextos.get(contextos.size()-1).put(id);
     }
+
+    @Override
+    public String toString() {
+        return "TablaSimbolos [" + contextos + "]";
+    }
+
+    
 }
 

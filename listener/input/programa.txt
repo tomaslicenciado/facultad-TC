@@ -7,8 +7,7 @@ int suma (int a, int b){
 }
 
 int a = 0;
-
-double b;
+double b, c;
 
 b=30;
 
@@ -42,5 +41,9 @@ int main(void) /*Función principal del programa*/
 	printf("Resultado de la multiplicación: %i\n",resultado);
 	resultado=5/2; /*Realizamos una división entera.*/
 	printf("Resultado de la división:%i\n",resultado);
+
+	while (1){
+		printf("Chau");
+	}
 	return(0); /* sale del programa: correcto */
 }
