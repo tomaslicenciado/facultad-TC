@@ -66,7 +66,7 @@ p_lista : COMA parametros | ;
 //10
 def_func : tipo ID PA params PC bloque ;
 //11
-params : tipo ID defp_lista | VOID defp_lista ;
+params : tipo ID defp_lista | VOID defp_lista | ;
 //12
 defp_lista : COMA params | ;
 //13

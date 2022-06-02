@@ -1,6 +1,7 @@
 package listener;
 
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
 
 import listener.listenerParser.AsignacionContext;
 import listener.listenerParser.BloqueContext;
@@ -8,15 +9,21 @@ import listener.listenerParser.D_listaContext;
 import listener.listenerParser.Dec_funcContext;
 import listener.listenerParser.Def_funcContext;
 import listener.listenerParser.ParametroContext;
+import listener.listenerParser.ParamsContext;
 import listener.listenerParser.DeclaracionContext;
 import listener.listenerParser.DeclaracionesContext;
 import listener.listenerParser.P_listaContext;
+import listener.listenerParser.Defp_listaContext;
 
 public class miListener extends listenerBaseListener{
     private TablaSimbolos tabla = new TablaSimbolos();
+    listenerParser parser;
+    String[] ruleNames;
     //private String t;
     
-    miListener(){
+    miListener(listenerParser parser){
+        this.parser = parser;
+        this.ruleNames = parser.getRuleNames();
         tabla.addContexto("GLOBAL");
     }
 
@@ -38,7 +45,9 @@ public class miListener extends listenerBaseListener{
             }
 
             if (tabla.buscarIdLocal(i)!=null){
-                System.out.println("Err: redeclaración de variable en el mismo contexto");
+                int linea = ctx.getStart().getLine();
+                System.out.println("Err línea "+linea+": Redeclaración de variable \'"+
+                i+"\' en el mismo contexto");
             }
             else{
                 tabla.addId(new Variable(i, t));
@@ -53,7 +62,8 @@ public class miListener extends listenerBaseListener{
 
     @Override
     public void exitAsignacion(AsignacionContext ctx) {
-        if (ctx.getParent().getRuleIndex()!=18){
+        String reglaPadre = ruleNames[ctx.getParent().getRuleIndex()];
+        if (reglaPadre!="declaracion"){
             String i = ctx.ID().getText();
             ID v = tabla.buscarIdLocal(i);
             if(v!=null){
@@ -67,7 +77,9 @@ public class miListener extends listenerBaseListener{
                     v.usar();
                 }
                 else{
-                    System.out.println("Err: Variable no declarada");
+                    int linea = ctx.getStart().getLine();
+                    System.out.println("Err línea "+linea+": La variable \'"+
+                    i +"\' no ha sido previamente declarada");
                 }
             }
         }
@@ -89,7 +101,6 @@ public class miListener extends listenerBaseListener{
 
     @Override
     public void exitBloque(BloqueContext ctx) {
-        System.out.println(tabla);
         tabla.delContexto();
     }
 
@@ -100,7 +111,7 @@ public class miListener extends listenerBaseListener{
         Funcion func = new Funcion(id, tipo);
         P_listaContext pLista = ctx.parametros().p_lista();
         ParametroContext pm = ctx.parametros().parametro();
-        while (pm!=null){
+        while (pm != null && pm.getChildCount()!=0){
             func.addArg(pm.tipo().getText());
             if (pLista.getChildCount()!=0){
                 pm = pLista.parametros().parametro();
@@ -113,11 +124,33 @@ public class miListener extends listenerBaseListener{
         tabla.addId(func);
     }
 
-    // @Override
-    // public void exitDef_func(Def_funcContext ctx) {
-    //     // TODO Auto-generated method stub
-    //     super.exitDef_func(ctx);
-    // }
+    @Override
+    public void visitErrorNode(ErrorNode node) {
+        //System.out.println(node.getParent());
+    }
+
+    @Override
+    public void exitDef_func(Def_funcContext ctx) {
+        String id = ctx.ID().getText();
+        String tipo = ctx.tipo().getText();
+        Funcion func = new Funcion(id, tipo);
+        func.inicializar();
+        ParamsContext params = ctx.params();
+
+        while (params != null && params.getChildCount() !=0){
+            if (params.tipo()!=null) func.addArg(params.tipo().getText());
+            else func.addArg(params.VOID().getText());
+
+            if (params.defp_lista().getChildCount() != 0){
+                params = params.defp_lista().params();
+            }
+            else{
+                params = null;
+            }
+        }
+        
+        tabla.addId(func);
+    }
 
     
 }

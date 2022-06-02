@@ -13,7 +13,7 @@ public class App
         listenerLexer lexer = new listenerLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         listenerParser parser = new listenerParser(tokens);
-        miListener listener = new miListener();
+        miListener listener = new miListener(parser);
         parser.addParseListener(listener);
         parser.si();
     }

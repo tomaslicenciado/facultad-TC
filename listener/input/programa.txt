@@ -2,13 +2,14 @@
 
 int suma (int,int);
 
+int funcon();
+
 int suma (int a, int b){
 	return (a+b);
 }
 
 int a = 0;
-double b, c;
-
+double b,c;
 b=30;
 
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */
