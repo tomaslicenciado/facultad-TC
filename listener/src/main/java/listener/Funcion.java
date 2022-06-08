@@ -22,4 +22,5 @@ public class Funcion extends ID{
     public String toString(){
         return (super.toString() + ", Args: " + args);
     }
+
 }

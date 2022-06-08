@@ -76,7 +76,7 @@ instrucciones : instruccion instrucciones | ;
 //15
 instruccion : inst_simple PYCOMA | est_control | ireturn PYCOMA ;
 //16
-inst_simple : declaraciones | asignacion | operaciones | dec_func ;
+inst_simple : declaraciones | asignacion | opal | dec_func ;
 //17
 declaraciones: tipo declaracion d_lista ;
 //18
@@ -84,9 +84,7 @@ declaracion : ID | asignacion ;
 //19
 d_lista : COMA declaracion d_lista | ;
 //20
-asignacion : ID '=' operaciones ;
-//21
-operaciones : opal operaciones | ;
+asignacion : ID '=' opal ;
 //22
 opal : negacion relacional logic ;
 //23
@@ -114,17 +112,17 @@ llam_func : ID PA argumentos PC ;
 //34
 argumentos : argumento a_lista | ;
 //35
-argumento : asignacion | operaciones ;
+argumento : asignacion | opal ;
 //36
 a_lista : COMA argumentos | ;
 //37
-ireturn : RETURN operaciones | RETURN;
+ireturn : RETURN opal | RETURN;
 //38
 est_control : iwhile | iif | ifor ;
 //39
 iwhile : WHILE PA argumentos PC acciones ;
 //40
-acciones : asignacion PYCOMA | operaciones PYCOMA | bloque | ;
+acciones : asignacion PYCOMA | opal PYCOMA | bloque | ;
 //41
 iif : IF PA argumentos PC acciones ielse ;
 //42

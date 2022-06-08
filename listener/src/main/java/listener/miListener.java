@@ -1,5 +1,7 @@
 package listener;
 
+import java.util.List;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
@@ -8,12 +10,14 @@ import listener.listenerParser.BloqueContext;
 import listener.listenerParser.D_listaContext;
 import listener.listenerParser.Dec_funcContext;
 import listener.listenerParser.Def_funcContext;
+import listener.listenerParser.Llam_funcContext;
+import listener.listenerParser.OpalContext;
 import listener.listenerParser.ParametroContext;
 import listener.listenerParser.ParamsContext;
+import listener.listenerParser.ValorContext;
 import listener.listenerParser.DeclaracionContext;
 import listener.listenerParser.DeclaracionesContext;
 import listener.listenerParser.P_listaContext;
-import listener.listenerParser.Defp_listaContext;
 
 public class miListener extends listenerBaseListener{
     private TablaSimbolos tabla = new TablaSimbolos();
@@ -67,12 +71,16 @@ public class miListener extends listenerBaseListener{
             String i = ctx.ID().getText();
             ID v = tabla.buscarIdLocal(i);
             if(v!=null){
+                String tipo = v.tipo;
+                //System.out.println(ctx.opal());
                 v.inicializar();
                 v.usar();
             }
             else{
                 v = tabla.buscarId(i);
                 if(v!=null){
+                    //Controlar que el tipo de dato asignado corresponda con el tipo de dato definido para la variable-----------------------
+
                     v.inicializar();
                     v.usar();
                 }
@@ -97,6 +105,21 @@ public class miListener extends listenerBaseListener{
         }  
         
         tabla.addContexto(identificador);
+        String rule = this.ruleNames[ctx.getParent().getRuleIndex()];
+        if (rule == "def_func"){
+            ParamsContext params = ((Def_funcContext)ctx.getParent()).params();
+            while (params!=null && params.getChildCount()!=0){
+                if (params.ID()!=null){
+                    String id = params.ID().getText();
+                    String tipo = params.tipo().getText();
+                    tabla.addId(new Variable(id,tipo));
+                }
+                if (params.defp_lista().getChildCount()!=0){
+                    params = params.defp_lista().params();
+                }
+                else params = null;
+            }
+        }
     }
 
     @Override
@@ -152,5 +175,51 @@ public class miListener extends listenerBaseListener{
         tabla.addId(func);
     }
 
-    
+    @Override
+    public void exitValor(ValorContext ctx) {
+        if (ctx.ID()!=null){
+            String id = ctx.ID().getText();
+            ID i = tabla.buscarIdLocal(id);
+            if (i==null) i = tabla.buscarId(id);
+            if (i==null) {
+                int linea = ctx.getStart().getLine();
+                System.out.println("Err linea "+linea+": El identificador "+
+                id+" no ha sido declarado");
+            }
+            else{
+                i.usar();
+            }
+        }
+    }
+
+    @Override
+    public void exitLlam_func(Llam_funcContext ctx) {
+        String id = ctx.ID().getText();
+        ID i = tabla.buscarIdLocal(id);
+        if (i==null) i = tabla.buscarId(id);
+        if (i==null) {
+            int linea = ctx.getStart().getLine();
+            System.out.println("Err linea "+linea+": El identificador "+
+            id+" no ha sido declarado");
+        }
+        else{
+            boolean correctParams = true;
+            List<String> args = ((Funcion)i).getArgs();
+            //Realizar ciclo para corroborar que los argumentos pasados a la llamada de la función-----------------------------------------------------
+            //corresponden con los tipos definidos en la firma de la misma
+            i.usar();
+        }
+    }
+
+    private String getTipoAsignado(OpalContext ctx){
+        String tipo = "";
+        if (ctx.logic() != null) return "int";
+        else if (ctx.negacion() != null) return "int";
+        else if (ctx.relacional().getChildCount() == 3) return getTipoAsignado(ctx.relacional().opal());
+        else{
+            if (ctx.relacional().rel() != null) return "int";
+            else if (ctx.relacional().opar().operacion()!=null) return "int";
+        }
+        return tipo;
+    }
 }

@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
 
     package listener;
 
@@ -219,16 +219,6 @@ public interface listenerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAsignacion(listenerParser.AsignacionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link listenerParser#operaciones}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperaciones(listenerParser.OperacionesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link listenerParser#operaciones}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperaciones(listenerParser.OperacionesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link listenerParser#opal}.
 	 * @param ctx the parse tree

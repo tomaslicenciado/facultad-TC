@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
 
     package listener;
 
@@ -160,13 +160,6 @@ public class listenerBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitAsignacion(listenerParser.AsignacionContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitOperaciones(listenerParser.OperacionesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

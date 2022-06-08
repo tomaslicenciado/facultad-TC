@@ -21,7 +21,7 @@
             "type": "antlr-debug",
             "request": "launch",
             "name": "Debug ANTLR4 Grammar",
-            "input": "input.txt",
+            "input": "input/programa.txt",
             "visualParseTree": true,
             "printParseTree": true,
             "startRule": "si",

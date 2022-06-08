@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
 
     package listener;
 
@@ -265,18 +265,6 @@ public class listenerBaseListener implements listenerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAsignacion(listenerParser.AsignacionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOperaciones(listenerParser.OperacionesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperaciones(listenerParser.OperacionesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

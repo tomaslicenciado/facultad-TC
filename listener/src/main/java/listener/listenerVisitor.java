@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.8
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
 
     package listener;
 
@@ -138,12 +138,6 @@ public interface listenerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAsignacion(listenerParser.AsignacionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link listenerParser#operaciones}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperaciones(listenerParser.OperacionesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link listenerParser#opal}.
 	 * @param ctx the parse tree

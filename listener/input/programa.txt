@@ -1,4 +1,5 @@
 #include <stdio.h>
+void printf(char*);
 
 int suma (int,int);
 
@@ -11,6 +12,7 @@ int suma (int a, int b){
 int a = 0;
 double b,c;
 b=30;
+c=((31*5)+(42/3))&&(a==3);
 
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 {
