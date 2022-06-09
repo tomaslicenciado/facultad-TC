@@ -1,5 +1,5 @@
 #include <stdio.h>
-void printf(char*);
+void printf(char);
 
 int suma (int,int);
 

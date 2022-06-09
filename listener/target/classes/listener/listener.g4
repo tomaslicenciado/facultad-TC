@@ -37,7 +37,6 @@ RETURN : 'return' ;
 ENTERO : DIGITO+ ;
 DOBLE : ENTERO '.' DIGITO DIGITO? ;
 ID : ( LETRA | '_' ) ( LETRA | DIGITO | '_' )* ;
-VSTRING : '"' ( '\\"' | . )*? '"' ;
 BCOMENTARIO : '/*' .*? '*/' -> skip;
 COMENTARIO : '//' .*? ('\n' | '\r') -> skip;
 PRAGMA : '#' .*? ('\n' | '\r') -> skip;
@@ -56,11 +55,7 @@ parametros : parametro p_lista ;
 //5
 parametro : tipo | tipo ID | ;
 //6
-tipo : t_simple | puntero ;
-//7
-t_simple : INT | DOUBLE | CHAR | VOID ;
-//8
-puntero : t_simple MULT | t_simple CA CC;
+tipo : INT | DOUBLE | CHAR | VOID ;
 //9
 p_lista : COMA parametros | ;
 //10
@@ -104,7 +99,7 @@ mult : MULT term | DIV term | MOD term | ;
 //30
 ovalor : valor | PA opar PC ;
 //31
-valor : llam_func | ID | numero | VCHAR | VSTRING ;
+valor : llam_func | ID | numero | VCHAR ;
 //32
 numero : ENTERO | DOBLE ;
 //33

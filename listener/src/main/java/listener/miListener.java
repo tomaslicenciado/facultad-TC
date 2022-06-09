@@ -12,8 +12,13 @@ import listener.listenerParser.Dec_funcContext;
 import listener.listenerParser.Def_funcContext;
 import listener.listenerParser.Llam_funcContext;
 import listener.listenerParser.OpalContext;
+import listener.listenerParser.OparContext;
+import listener.listenerParser.OperacionContext;
+import listener.listenerParser.OvalorContext;
 import listener.listenerParser.ParametroContext;
 import listener.listenerParser.ParamsContext;
+import listener.listenerParser.RelacionalContext;
+import listener.listenerParser.TermContext;
 import listener.listenerParser.ValorContext;
 import listener.listenerParser.DeclaracionContext;
 import listener.listenerParser.DeclaracionesContext;
@@ -72,17 +77,19 @@ public class miListener extends listenerBaseListener{
             ID v = tabla.buscarIdLocal(i);
             if(v!=null){
                 String tipo = v.tipo;
-                //System.out.println(ctx.opal());
-                v.inicializar();
-                v.usar();
+                if (tiposIncompatibles(tipo, getTipoAsignado(ctx.opal())))
+                    System.out.println("El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                else
+                    v.inicializar();
             }
             else{
                 v = tabla.buscarId(i);
                 if(v!=null){
-                    //Controlar que el tipo de dato asignado corresponda con el tipo de dato definido para la variable-----------------------
-
-                    v.inicializar();
-                    v.usar();
+                    String tipo = v.tipo;
+                    if (tiposIncompatibles(tipo, getTipoAsignado(ctx.opal())))
+                        System.out.println("El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                    else
+                        v.inicializar();
                 }
                 else{
                     int linea = ctx.getStart().getLine();
@@ -211,15 +218,72 @@ public class miListener extends listenerBaseListener{
         }
     }
 
-    private String getTipoAsignado(OpalContext ctx){
+    private String getTipoAsignado(ParserRuleContext ctx){
         String tipo = "";
-        if (ctx.logic() != null) return "int";
-        else if (ctx.negacion() != null) return "int";
-        else if (ctx.relacional().getChildCount() == 3) return getTipoAsignado(ctx.relacional().opal());
-        else{
-            if (ctx.relacional().rel() != null) return "int";
-            else if (ctx.relacional().opar().operacion()!=null) return "int";
+        String rule = this.ruleNames[ctx.getRuleIndex()];
+        if (rule == "opal"){
+            if (getTipoAsignado(((OpalContext)ctx).relacional()) == "void")
+                tipo = "void";
+            else if ((((OpalContext)ctx).negacion() == null && ((OpalContext)ctx).logic() == null))
+                tipo = getTipoAsignado(((OpalContext)ctx).relacional());
+            else tipo = "int";
+        }
+        else if (rule == "relacional"){
+            int hijos = ((RelacionalContext)ctx).getChildCount();
+            if (hijos == 3) tipo = getTipoAsignado(((RelacionalContext)ctx).opal());
+            else if (((RelacionalContext)ctx).rel()!= null){
+                if (getTipoAsignado(((RelacionalContext)ctx).opar()) == "void")
+                    tipo = "void";
+                else if (getTipoAsignado(((RelacionalContext)ctx).rel().opar()) == "void")
+                    tipo = "void";
+                tipo = "int";
+            }
+            else tipo = getTipoAsignado(((RelacionalContext)ctx).opar());
+        }
+        else if (rule == "opar"){
+            if (((OparContext)ctx).operacion()!=null){
+                String tTipo = getTipoAsignado(((OparContext)ctx).term());
+                String oTipo = getTipoAsignado(((OparContext)ctx).operacion());
+                if (tTipo == "void" || oTipo == "void") tipo = "void";
+                else if (tTipo == "double" || oTipo == "double") tipo = "double";
+                else if (tTipo == "char" || oTipo == "char") tipo = "char";
+                else tipo = "int";
+            }
+            else tipo = getTipoAsignado(((OparContext)ctx).term());
+        }
+        else if (rule == "operacion") tipo = getTipoAsignado(((OperacionContext)ctx).opar());
+        else if (rule == "term"){
+            if (((TermContext)ctx).mult() != null){
+                String oTipo = getTipoAsignado(((TermContext)ctx).ovalor());
+                String mTipo = getTipoAsignado(((TermContext)ctx).mult());
+                if (mTipo == "void" || oTipo == "void") tipo = "void";
+                else if (mTipo == "double" || oTipo == "double") tipo = "double";
+                else if (mTipo == "char" || oTipo == "char") tipo = "char";
+                else tipo = "int";
+            }
+            else tipo = getTipoAsignado(((TermContext)ctx).ovalor());
+        }
+        else if (rule == "ovalor"){
+            if (((OvalorContext)ctx).getChildCount() == 1) tipo = getTipoAsignado(((OvalorContext)ctx).valor());
+            else tipo = getTipoAsignado(((OvalorContext)ctx).opar());
+        }
+        else if (rule == "valor"){
+            if (((ValorContext)ctx).llam_func() != null) 
+                tipo = this.tabla.buscarId(((ValorContext)ctx).llam_func().ID().getText()).tipo;
+            else if (((ValorContext)ctx).ID() != null)
+                tipo = this.tabla.buscarId(((ValorContext)ctx).ID().getText()).tipo;
+            else if (((ValorContext)ctx).numero() != null)
+                tipo = (((ValorContext)ctx).numero().ENTERO()!=null?"int":"double");
+            else if (((ValorContext)ctx).VCHAR()!=null)
+                tipo = "char";
+            else tipo = "char*";
         }
         return tipo;
     }
+
+    private boolean tiposIncompatibles(String a, String b){
+        if (a == "void" || b == "void") return true;
+        else return false;
+    }
+
 }
