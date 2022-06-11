@@ -1,15 +1,22 @@
 package listener;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
+import listener.listenerParser.A_listaContext;
+import listener.listenerParser.ArgumentoContext;
+import listener.listenerParser.ArgumentosContext;
 import listener.listenerParser.AsignacionContext;
 import listener.listenerParser.BloqueContext;
 import listener.listenerParser.D_listaContext;
 import listener.listenerParser.Dec_funcContext;
 import listener.listenerParser.Def_funcContext;
+import listener.listenerParser.IeofContext;
 import listener.listenerParser.Llam_funcContext;
 import listener.listenerParser.OpalContext;
 import listener.listenerParser.OparContext;
@@ -24,16 +31,32 @@ import listener.listenerParser.DeclaracionContext;
 import listener.listenerParser.DeclaracionesContext;
 import listener.listenerParser.P_listaContext;
 
-public class miListener extends listenerBaseListener{
+public class miListener extends listenerBaseListener {
     private TablaSimbolos tabla = new TablaSimbolos();
-    listenerParser parser;
-    String[] ruleNames;
-    //private String t;
+    private String[] ruleNames;
+    private List<String> errores = new ArrayList<String>();
+    private List<String> salidaContextos = new ArrayList<String>();
+    private List<String> warnings = new ArrayList<String>();
+    private File fileout;
+    private FileWriter output;
     
+    public List<String> getErrores() {
+        return errores;
+    }
+
     miListener(listenerParser parser){
-        this.parser = parser;
         this.ruleNames = parser.getRuleNames();
         tabla.addContexto("GLOBAL");
+        salidaContextos.add("TABLA DE SíMBOLOS:\nContexto: GLOBAL {");
+        try{
+            fileout = new File("output/analisis.txt");
+            output = new FileWriter(fileout);
+            output.write("");
+            output.close();
+            output = new FileWriter(fileout,true);
+        }catch(Exception e){
+            System.err.println(e);
+        }
     }
 
     @Override
@@ -55,7 +78,7 @@ public class miListener extends listenerBaseListener{
 
             if (tabla.buscarIdLocal(i)!=null){
                 int linea = ctx.getStart().getLine();
-                System.out.println("Err línea "+linea+": Redeclaración de variable \'"+
+                errores.add("Err línea "+linea+": Redeclaración de variable \'"+
                 i+"\' en el mismo contexto");
             }
             else{
@@ -77,8 +100,10 @@ public class miListener extends listenerBaseListener{
             ID v = tabla.buscarIdLocal(i);
             if(v!=null){
                 String tipo = v.tipo;
-                if (tiposIncompatibles(tipo, getTipoAsignado(ctx.opal())))
-                    System.out.println("El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                if (tiposIncompatibles(tipo, getTipo(ctx.opal()))){
+                    int linea = ctx.getStart().getLine();
+                    errores.add("Err linea "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                }
                 else
                     v.inicializar();
             }
@@ -86,15 +111,17 @@ public class miListener extends listenerBaseListener{
                 v = tabla.buscarId(i);
                 if(v!=null){
                     String tipo = v.tipo;
-                    if (tiposIncompatibles(tipo, getTipoAsignado(ctx.opal())))
-                        System.out.println("El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                    if (tiposIncompatibles(tipo, getTipo(ctx.opal()))){
+                        int linea = ctx.getStart().getLine();
+                        errores.add("Err linea "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                    }
                     else
                         v.inicializar();
                 }
                 else{
                     int linea = ctx.getStart().getLine();
-                    System.out.println("Err línea "+linea+": La variable \'"+
-                    i +"\' no ha sido previamente declarada");
+                    errores.add("Err línea "+linea+": La variable \'"+
+                                i +"\' no ha sido previamente declarada");
                 }
             }
         }
@@ -104,13 +131,17 @@ public class miListener extends listenerBaseListener{
     public void enterBloque(BloqueContext ctx) {
         ParserRuleContext context = ctx.getParent();
         String identificador;
-        if (context.getRuleIndex() == 10){
+        if (ruleNames[context.getRuleIndex()]=="def_func"){
             identificador = ((Def_funcContext) context).ID().getText();
         }
         else{
-            identificador = context.getParent().getChild(0).getText();
+            identificador = context.getParent().getStart().getText();
         }  
         
+        String tabs = "";
+        for(int i=0;i<tabla.size();i++){
+            tabs = tabs+"\t";
+        }
         tabla.addContexto(identificador);
         String rule = this.ruleNames[ctx.getParent().getRuleIndex()];
         if (rule == "def_func"){
@@ -127,10 +158,23 @@ public class miListener extends listenerBaseListener{
                 else params = null;
             }
         }
+        salidaContextos.add(tabs+"Contexto: "+identificador+" {");
     }
 
     @Override
     public void exitBloque(BloqueContext ctx) {
+        String tabs = "";
+        for(int i=0;i<tabla.size();i++){
+            tabs = tabs+"\t";
+        }
+        for (ID id : tabla.lastContext().getSimbolos().values()) {
+            salidaContextos.add(tabs+id.toString());
+            if (!id.utilizado){
+                warnings.add("Warning: El identificador "+id.idName+" declarado no ha sido utilizado");
+            }
+        }
+        tabs = tabs.substring(0,tabs.length()-1);
+        salidaContextos.add(tabs+"}");
         tabla.delContexto();
     }
 
@@ -156,7 +200,7 @@ public class miListener extends listenerBaseListener{
 
     @Override
     public void visitErrorNode(ErrorNode node) {
-        //System.out.println(node.getParent());
+        errores.add("Err node: "+node.getText());
     }
 
     @Override
@@ -190,8 +234,8 @@ public class miListener extends listenerBaseListener{
             if (i==null) i = tabla.buscarId(id);
             if (i==null) {
                 int linea = ctx.getStart().getLine();
-                System.out.println("Err linea "+linea+": El identificador "+
-                id+" no ha sido declarado");
+                errores.add("Err linea "+linea+": El identificador "+
+                                id+" no ha sido declarado");
             }
             else{
                 i.usar();
@@ -206,66 +250,81 @@ public class miListener extends listenerBaseListener{
         if (i==null) i = tabla.buscarId(id);
         if (i==null) {
             int linea = ctx.getStart().getLine();
-            System.out.println("Err linea "+linea+": El identificador "+
-            id+" no ha sido declarado");
+            errores.add("Err linea "+linea+": El identificador "+
+                        id+" no ha sido declarado");
         }
         else{
             boolean correctParams = true;
-            List<String> args = ((Funcion)i).getArgs();
-            //Realizar ciclo para corroborar que los argumentos pasados a la llamada de la función-----------------------------------------------------
-            //corresponden con los tipos definidos en la firma de la misma
-            i.usar();
+            List<String> params = ((Funcion)i).getArgs();
+            List<String> args = new ArrayList<String>();
+            listaTipos(ctx.argumentos(), args);
+            correctParams = params.size() == args.size();
+            int j;
+            for (j=0; correctParams && j < args.size(); j++) {
+                correctParams = !tiposIncompatibles(args.get(j), params.get(j));
+                if (!correctParams) break;
+            }
+            if (params.size()==1 && params.contains("void") && args.size()==0) correctParams = true;
+            if (correctParams) i.usar();
+            else {
+                if (params.size() != args.size()) errores.add("Err linea "+ctx.getStart().getLine()+": la cantidad de argumentos entregados"+
+                                                                    " en la llamada de la función "+i.idName+" no se corresponde con la cantidad de parámetros"+
+                                                                    " en la declaración de la misma");
+                else errores.add("Err linea "+ctx.getStart().getLine()+": "+
+                "Se esperaba el tipo "+(params.size()==0?"empty":params.get(j))+" en la funcion "+
+                i.idName+", pero el tipo "+(args.size()==0?"empty":args.get(j))+" fue entregado");
+            }
         }
     }
 
-    private String getTipoAsignado(ParserRuleContext ctx){
+    private String getTipo(ParserRuleContext ctx){
         String tipo = "";
         String rule = this.ruleNames[ctx.getRuleIndex()];
         if (rule == "opal"){
-            if (getTipoAsignado(((OpalContext)ctx).relacional()) == "void")
+            if (getTipo(((OpalContext)ctx).relacional()) == "void")
                 tipo = "void";
-            else if ((((OpalContext)ctx).negacion() == null && ((OpalContext)ctx).logic() == null))
-                tipo = getTipoAsignado(((OpalContext)ctx).relacional());
+            else if (((OpalContext)ctx).negacion().getChildCount()==0 && ((OpalContext)ctx).logic().getChildCount()==0){
+                tipo = getTipo(((OpalContext)ctx).relacional());
+            }
             else tipo = "int";
         }
         else if (rule == "relacional"){
             int hijos = ((RelacionalContext)ctx).getChildCount();
-            if (hijos == 3) tipo = getTipoAsignado(((RelacionalContext)ctx).opal());
-            else if (((RelacionalContext)ctx).rel()!= null){
-                if (getTipoAsignado(((RelacionalContext)ctx).opar()) == "void")
-                    tipo = "void";
-                else if (getTipoAsignado(((RelacionalContext)ctx).rel().opar()) == "void")
-                    tipo = "void";
-                tipo = "int";
+            if (hijos == 3) tipo = getTipo(((RelacionalContext)ctx).opal());
+            else if (((RelacionalContext)ctx).rel()!= null && ((RelacionalContext)ctx).rel().getChildCount() == 2){
+                if (getTipo(((RelacionalContext)ctx).opar()) != "void" &&
+                    getTipo(((RelacionalContext)ctx).rel().opar()) != "void")
+                    tipo = "int";
+                else tipo = getTipo(((RelacionalContext)ctx).opar());
             }
-            else tipo = getTipoAsignado(((RelacionalContext)ctx).opar());
+            else tipo = getTipo(((RelacionalContext)ctx).opar());
         }
         else if (rule == "opar"){
-            if (((OparContext)ctx).operacion()!=null){
-                String tTipo = getTipoAsignado(((OparContext)ctx).term());
-                String oTipo = getTipoAsignado(((OparContext)ctx).operacion());
+            if (((OparContext)ctx).operacion().getChildCount() != 0){
+                String tTipo = getTipo(((OparContext)ctx).term());
+                String oTipo = getTipo(((OparContext)ctx).operacion());
                 if (tTipo == "void" || oTipo == "void") tipo = "void";
                 else if (tTipo == "double" || oTipo == "double") tipo = "double";
                 else if (tTipo == "char" || oTipo == "char") tipo = "char";
                 else tipo = "int";
             }
-            else tipo = getTipoAsignado(((OparContext)ctx).term());
+            else tipo = getTipo(((OparContext)ctx).term());
         }
-        else if (rule == "operacion") tipo = getTipoAsignado(((OperacionContext)ctx).opar());
+        else if (rule == "operacion") tipo = getTipo(((OperacionContext)ctx).opar());
         else if (rule == "term"){
-            if (((TermContext)ctx).mult() != null){
-                String oTipo = getTipoAsignado(((TermContext)ctx).ovalor());
-                String mTipo = getTipoAsignado(((TermContext)ctx).mult());
+            if (((TermContext)ctx).mult().getChildCount() != 0){
+                String oTipo = getTipo(((TermContext)ctx).ovalor());
+                String mTipo = getTipo(((TermContext)ctx).mult());
                 if (mTipo == "void" || oTipo == "void") tipo = "void";
                 else if (mTipo == "double" || oTipo == "double") tipo = "double";
                 else if (mTipo == "char" || oTipo == "char") tipo = "char";
                 else tipo = "int";
             }
-            else tipo = getTipoAsignado(((TermContext)ctx).ovalor());
+            else tipo = getTipo(((TermContext)ctx).ovalor());
         }
         else if (rule == "ovalor"){
-            if (((OvalorContext)ctx).getChildCount() == 1) tipo = getTipoAsignado(((OvalorContext)ctx).valor());
-            else tipo = getTipoAsignado(((OvalorContext)ctx).opar());
+            if (((OvalorContext)ctx).getChildCount() == 1) tipo = getTipo(((OvalorContext)ctx).valor());
+            else tipo = getTipo(((OvalorContext)ctx).opar());
         }
         else if (rule == "valor"){
             if (((ValorContext)ctx).llam_func() != null) 
@@ -276,14 +335,68 @@ public class miListener extends listenerBaseListener{
                 tipo = (((ValorContext)ctx).numero().ENTERO()!=null?"int":"double");
             else if (((ValorContext)ctx).VCHAR()!=null)
                 tipo = "char";
-            else tipo = "char*";
+            else if (((ValorContext)ctx).VSTRING()!=null) tipo = "char*";
         }
         return tipo;
     }
 
     private boolean tiposIncompatibles(String a, String b){
         if (a == "void" || b == "void") return true;
+        else if (a.contains("*") && !(b.contains("*"))) return true;
+        else if (!(a.contains("*")) && (b.contains("*"))) return true;
+        else if (a.contains("*") && b.contains("*")) return tiposIncompatibles(a.replace("*", ""), b.replace("*", ""));
         else return false;
     }
 
+    private void listaTipos(ParserRuleContext ctx, List<String> lista){
+        String rule = ruleNames[ctx.getRuleIndex()];
+        if (rule == "llam_func") listaTipos(((Llam_funcContext)ctx).argumentos(), lista);
+        else if (rule == "argumentos" && ctx.getChildCount() != 0){
+            listaTipos(((ArgumentosContext)ctx).argumento(), lista);
+            listaTipos(((ArgumentosContext)ctx).a_lista(), lista);
+        }
+        else if (rule == "argumento"){
+            if (((ArgumentoContext)ctx).asignacion() != null){
+                listaTipos(((ArgumentoContext)ctx).asignacion(), lista);
+            }
+            else {
+                lista.add(getTipo(((ArgumentoContext)ctx).opal()));
+            }
+        }
+        else if (rule == "a_lista"){
+            if (((A_listaContext)ctx).getChildCount() != 0){
+                listaTipos(((A_listaContext)ctx).argumentos(), lista);
+            }
+        }
+    }
+
+    @Override
+    public void exitIeof(IeofContext ctx) {
+        //System.out.println();
+        try {
+            for (ID id : tabla.lastContext().getSimbolos().values()) {
+                salidaContextos.add("\t"+id.toString());
+                if (!id.utilizado){
+                    warnings.add("Warning: El identificador "+id.idName+" declarado no ha sido utilizado");
+                }
+            }
+            salidaContextos.add("}\n");
+            for (String linea : salidaContextos) {
+                output.write(linea+"\n");
+            }
+            output.write("\nWARNINGS\n");
+            for (String warning : warnings) {
+                output.write(warning+"\n");
+            }
+            output.write("\nERRORES\n");
+            for (String error : errores) {
+                output.write(error+"\n");
+            }
+            output.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TablaSimbolos {
-    List<Contexto> contextos;
+    private List<Contexto> contextos;
 
     public TablaSimbolos(){
         contextos = new ArrayList<Contexto>();
@@ -41,6 +41,12 @@ public class TablaSimbolos {
         return "TablaSimbolos [" + contextos + "]";
     }
 
-    
+    public Contexto lastContext(){
+        return contextos.get(contextos.size()-1);
+    }
+
+    public int size(){
+        return contextos.size();
+    }
 }
 

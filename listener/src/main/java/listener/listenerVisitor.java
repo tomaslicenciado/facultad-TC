@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
 
     package listener;
 
@@ -18,6 +18,12 @@ public interface listenerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSi(listenerParser.SiContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link listenerParser#ieof}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIeof(listenerParser.IeofContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link listenerParser#opciones}.
 	 * @param ctx the parse tree
@@ -54,6 +60,18 @@ public interface listenerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTipo(listenerParser.TipoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link listenerParser#t_simple}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitT_simple(listenerParser.T_simpleContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link listenerParser#puntero}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPuntero(listenerParser.PunteroContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link listenerParser#p_lista}.
 	 * @param ctx the parse tree

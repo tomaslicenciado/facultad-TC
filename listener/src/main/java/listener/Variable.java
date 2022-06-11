@@ -6,4 +6,7 @@ public class Variable extends ID{
         super(name, tipo);
     }
     
+    public String toString(){
+        return ("VARIABLE - "+super.toString());
+    }
 }

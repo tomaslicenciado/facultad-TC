@@ -1,5 +1,6 @@
 #include <stdio.h>
-void printf(char);
+void print(char*);
+void printf(char*,int);
 
 int suma (int,int);
 
@@ -16,16 +17,16 @@ c=((31*5)+(42/3))&&(a==3);
 
 void holamundo(void) /* Función donde se ejecuta la lógica del programa */
 {
-	printf("Hola Mundo\n"); /* imprime la cadena */
+	print("Hola Mundo\n"); /* imprime la cadena */
 	return; /* sale de la función */
 }
 
 void acceso(char edad)
 {
     if (!(edad < 18))
-        printf("No puedes acceder.\n");
+        print("No puedes acceder.\n");
     else
-        printf("Bienvenido.\n");
+        print("Bienvenido.\n");
     return;
 }
 
@@ -46,7 +47,7 @@ int main(void) /*Función principal del programa*/
 	printf("Resultado de la división:%i\n",resultado);
 
 	while (1){
-		printf("Chau");
+		print("Chau");
 	}
 	return(0); /* sale del programa: correcto */
 }

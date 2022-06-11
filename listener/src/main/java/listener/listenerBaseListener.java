@@ -1,4 +1,4 @@
-// Generated from /home/tomas/FACULTAD/TC/facultad-TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
+// Generated from /media/tomas/DATOS/FACULTAD/5 - TC/listener/src/main/java/listener/listener.g4 by ANTLR 4.9.2
 
     package listener;
 
@@ -25,6 +25,18 @@ public class listenerBaseListener implements listenerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSi(listenerParser.SiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIeof(listenerParser.IeofContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIeof(listenerParser.IeofContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -97,6 +109,30 @@ public class listenerBaseListener implements listenerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTipo(listenerParser.TipoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterT_simple(listenerParser.T_simpleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitT_simple(listenerParser.T_simpleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPuntero(listenerParser.PunteroContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPuntero(listenerParser.PunteroContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
