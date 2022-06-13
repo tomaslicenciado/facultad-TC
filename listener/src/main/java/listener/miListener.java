@@ -80,6 +80,7 @@ public class miListener extends listenerBaseListener {
                 int linea = ctx.getStart().getLine();
                 errores.add("Err línea "+linea+": Redeclaración de variable \'"+
                 i+"\' en el mismo contexto");
+                System.out.println(errores.get(errores.size()-1));
             }
             else{
                 tabla.addId(new Variable(i, t));
@@ -103,6 +104,7 @@ public class miListener extends listenerBaseListener {
                 if (tiposIncompatibles(tipo, getTipo(ctx.opal()))){
                     int linea = ctx.getStart().getLine();
                     errores.add("Err linea "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                    System.out.println(errores.get(errores.size()-1));
                 }
                 else
                     v.inicializar();
@@ -114,6 +116,7 @@ public class miListener extends listenerBaseListener {
                     if (tiposIncompatibles(tipo, getTipo(ctx.opal()))){
                         int linea = ctx.getStart().getLine();
                         errores.add("Err linea "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                        System.out.println(errores.get(errores.size()-1));
                     }
                     else
                         v.inicializar();
@@ -122,6 +125,7 @@ public class miListener extends listenerBaseListener {
                     int linea = ctx.getStart().getLine();
                     errores.add("Err línea "+linea+": La variable \'"+
                                 i +"\' no ha sido previamente declarada");
+                    System.out.println(errores.get(errores.size()-1));
                 }
             }
         }
@@ -201,6 +205,7 @@ public class miListener extends listenerBaseListener {
     @Override
     public void visitErrorNode(ErrorNode node) {
         errores.add("Err node: "+node.getText());
+        System.out.println(errores.get(errores.size()-1));
     }
 
     @Override
@@ -236,6 +241,7 @@ public class miListener extends listenerBaseListener {
                 int linea = ctx.getStart().getLine();
                 errores.add("Err linea "+linea+": El identificador "+
                                 id+" no ha sido declarado");
+                System.out.println(errores.get(errores.size()-1));
             }
             else{
                 i.usar();
@@ -252,6 +258,7 @@ public class miListener extends listenerBaseListener {
             int linea = ctx.getStart().getLine();
             errores.add("Err linea "+linea+": El identificador "+
                         id+" no ha sido declarado");
+            System.out.println(errores.get(errores.size()-1));
         }
         else{
             boolean correctParams = true;
@@ -273,6 +280,8 @@ public class miListener extends listenerBaseListener {
                 else errores.add("Err linea "+ctx.getStart().getLine()+": "+
                 "Se esperaba el tipo "+(params.size()==0?"empty":params.get(j))+" en la funcion "+
                 i.idName+", pero el tipo "+(args.size()==0?"empty":args.get(j))+" fue entregado");
+
+                System.out.println(errores.get(errores.size()-1));
             }
         }
     }
@@ -396,6 +405,9 @@ public class miListener extends listenerBaseListener {
         } catch (Exception e) {
             System.err.println(e);
         }
+
+        System.out.println("Saliendo del programa.\nLa tabla de símbolos y los errores y warnings generados se "+
+                            "almacenaron en el archivo output/analisis.txt");
     }
 
     

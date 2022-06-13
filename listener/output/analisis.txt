@@ -14,7 +14,7 @@ Contexto: GLOBAL {
 		}
 		VARIABLE - ID: resultado, Tipo: char, Inicializado: SI, Utilizado: SI
 	}
-	FUNCION - ID: suma, Tipo: int, Inicializado: SI, Utilizado: SI, Args: [int, int]
+	FUNCION - ID: suma, Tipo: int, Inicializado: SI, Utilizado: NO, Args: [int, int]
 	FUNCION - ID: funcon, Tipo: int, Inicializado: NO, Utilizado: NO, Args: []
 	VARIABLE - ID: a, Tipo: int, Inicializado: SI, Utilizado: SI
 	FUNCION - ID: print, Tipo: void, Inicializado: NO, Utilizado: SI, Args: [char*]
@@ -28,6 +28,7 @@ Contexto: GLOBAL {
 
 
 WARNINGS
+Warning: El identificador suma declarado no ha sido utilizado
 Warning: El identificador funcon declarado no ha sido utilizado
 Warning: El identificador b declarado no ha sido utilizado
 Warning: El identificador c declarado no ha sido utilizado

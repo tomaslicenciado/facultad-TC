@@ -20,10 +20,12 @@ public class miErrorListener extends BaseErrorListener{
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
                              String msg, RecognitionException e) {
         err.add("Syntax Error in line "+line+": "+msg);
+        System.out.println("Syntax Error in line "+line+": "+msg);        
     }
 
     @Override
     public void reportContextSensitivity(Parser parser, DFA dfa, int i, int i1, int i2, ATNConfigSet atnConfigSet) {
-        err.add("Report context sensitivity");
+        err.add("Report context sensitivity at line "+i);
+        System.out.println("Report context sensitivity at line "+i);
     }
 }
