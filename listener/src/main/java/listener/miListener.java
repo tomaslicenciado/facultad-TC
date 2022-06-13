@@ -78,7 +78,7 @@ public class miListener extends listenerBaseListener {
 
             if (tabla.buscarIdLocal(i)!=null){
                 int linea = ctx.getStart().getLine();
-                errores.add("Err línea "+linea+": Redeclaración de variable \'"+
+                errores.add("Semantic Error line "+linea+": Redeclaración de variable \'"+
                 i+"\' en el mismo contexto");
                 System.out.println(errores.get(errores.size()-1));
             }
@@ -103,7 +103,7 @@ public class miListener extends listenerBaseListener {
                 String tipo = v.tipo;
                 if (tiposIncompatibles(tipo, getTipo(ctx.opal()))){
                     int linea = ctx.getStart().getLine();
-                    errores.add("Err linea "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                    errores.add("Semantic Error line "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
                     System.out.println(errores.get(errores.size()-1));
                 }
                 else
@@ -115,7 +115,7 @@ public class miListener extends listenerBaseListener {
                     String tipo = v.tipo;
                     if (tiposIncompatibles(tipo, getTipo(ctx.opal()))){
                         int linea = ctx.getStart().getLine();
-                        errores.add("Err linea "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
+                        errores.add("Semantic Error line "+linea+": El tipo asignado es incompatible con el tipo declarado para "+v.idName);
                         System.out.println(errores.get(errores.size()-1));
                     }
                     else
@@ -123,7 +123,7 @@ public class miListener extends listenerBaseListener {
                 }
                 else{
                     int linea = ctx.getStart().getLine();
-                    errores.add("Err línea "+linea+": La variable \'"+
+                    errores.add("Semantic Error line "+linea+": La variable \'"+
                                 i +"\' no ha sido previamente declarada");
                     System.out.println(errores.get(errores.size()-1));
                 }
@@ -204,7 +204,7 @@ public class miListener extends listenerBaseListener {
 
     @Override
     public void visitErrorNode(ErrorNode node) {
-        errores.add("Err node: "+node.getText());
+        errores.add("Semantic Error node: "+node.getText());
         System.out.println(errores.get(errores.size()-1));
     }
 
@@ -239,7 +239,7 @@ public class miListener extends listenerBaseListener {
             if (i==null) i = tabla.buscarId(id);
             if (i==null) {
                 int linea = ctx.getStart().getLine();
-                errores.add("Err linea "+linea+": El identificador "+
+                errores.add("Semantic Error line "+linea+": El identificador "+
                                 id+" no ha sido declarado");
                 System.out.println(errores.get(errores.size()-1));
             }
@@ -256,7 +256,7 @@ public class miListener extends listenerBaseListener {
         if (i==null) i = tabla.buscarId(id);
         if (i==null) {
             int linea = ctx.getStart().getLine();
-            errores.add("Err linea "+linea+": El identificador "+
+            errores.add("Semantic Error line "+linea+": El identificador "+
                         id+" no ha sido declarado");
             System.out.println(errores.get(errores.size()-1));
         }
@@ -274,10 +274,10 @@ public class miListener extends listenerBaseListener {
             if (params.size()==1 && params.contains("void") && args.size()==0) correctParams = true;
             if (correctParams) i.usar();
             else {
-                if (params.size() != args.size()) errores.add("Err linea "+ctx.getStart().getLine()+": la cantidad de argumentos entregados"+
+                if (params.size() != args.size()) errores.add("Semantic Error line "+ctx.getStart().getLine()+": la cantidad de argumentos entregados"+
                                                                     " en la llamada de la función "+i.idName+" no se corresponde con la cantidad de parámetros"+
                                                                     " en la declaración de la misma");
-                else errores.add("Err linea "+ctx.getStart().getLine()+": "+
+                else errores.add("Semantic Error line "+ctx.getStart().getLine()+": "+
                 "Se esperaba el tipo "+(params.size()==0?"empty":params.get(j))+" en la funcion "+
                 i.idName+", pero el tipo "+(args.size()==0?"empty":args.get(j))+" fue entregado");
 
